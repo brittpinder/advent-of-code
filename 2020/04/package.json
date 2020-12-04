@@ -1,0 +1,12 @@
+{
+  "name": "passport-processing",
+  "version": "1.0.0",
+  "description": "Advent of Code - Day 4, Part 2",
+  "main": "02.js",
+  "scripts": { "test": "jasmine" },
+  "author": "Brittany Pinder",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^3.6.3"
+  }
+}
