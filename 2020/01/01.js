@@ -7,12 +7,16 @@ for (const line of lines) {
     data.push(+line);
 }
 
+let visited = new Set();
 for (var i = 0; i < data.length; ++i) {
-    const num1 = data[i];
-    for (var j = i + 1; j < data.length; ++j) {
-        const num2 = data[j]
-        if (num1 + num2 === 2020) {
-            console.log(num1 * num2);
-        }
+    const num = data[i];
+    if (num > 2020) {
+        continue;
     }
+
+    const target = 2020 - num;
+    if (visited.has(target)) {
+        console.log(num * target);
+    }
+    visited.add(num);
 }
