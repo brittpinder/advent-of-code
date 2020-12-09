@@ -8,8 +8,7 @@ for (const line of lines) {
 }
 
 let visited = new Set();
-for (var i = 0; i < data.length; ++i) {
-    const num = data[i];
+for (const num of data) {
     if (num > 2020) {
         continue;
     }
