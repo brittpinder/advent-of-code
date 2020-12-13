@@ -1,6 +1,6 @@
 let fs = require('fs');
 
-const getWaitingTimeForBus = (busID) => {
+const getWaitingTimeForBus = (timestamp, busID) => {
     const mod = timestamp % busID;
     if (mod === 0) {
         return 0;
@@ -17,10 +17,10 @@ busses = busses.split(",")
                .map(Number);
 
 let bestBus = busses[0];
-let shortestWaitingTime = getWaitingTimeForBus(bestBus);
+let shortestWaitingTime = getWaitingTimeForBus(timestamp, bestBus);
 
 for (let i = 1; i < busses.length; ++i) {
-    const waitingTime = getWaitingTimeForBus(busses[i]);
+    const waitingTime = getWaitingTimeForBus(timestamp, busses[i]);
     if (waitingTime < shortestWaitingTime) {
         shortestWaitingTime = waitingTime;
         bestBus = busses[i];
