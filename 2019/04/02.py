@@ -3,8 +3,8 @@ def is_num_valid(num):
     if digits != sorted(digits):
         return False
     for i in range(1, len(digits)):
-        current, previous = digits[i], digits[i - 1]
-        if current == previous and digits.count(current) == 2:
+        current = digits[i]
+        if current == digits[i - 1] and digits.count(current) == 2:
             return True
     return False
 
