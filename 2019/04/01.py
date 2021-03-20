@@ -13,3 +13,4 @@ for i in range(245182, 790572):
         num_valid += 1
 
 print(num_valid)
+assert num_valid == 1099

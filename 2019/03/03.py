@@ -36,6 +36,8 @@ if (0, 0) in intersections:
 
 closest_intersection = min([abs(position[0]) + abs(position[1]) for position in intersections])
 print(f"Answer 1: {closest_intersection}")
+assert closest_intersection == 1211
 
 fewest_steps = min([path1_positions[position] + path2_positions[position] for position in intersections])
 print(f"Answer 2: {fewest_steps}")
+assert fewest_steps == 101386

@@ -9,3 +9,4 @@ with open("input") as file:
 total_fuel = sum([calculate_fuel_needed_for_fuel(mass // 3 - 2) for mass in data])
 
 print(total_fuel)
+assert total_fuel == 5083024

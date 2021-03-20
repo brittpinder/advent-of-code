@@ -19,4 +19,6 @@ def find_answer():
             if (run_program(data[::], i, j) == 19690720):
                 return 100 * i + j
 
-print(find_answer())
+answer = find_answer()
+print(answer)
+assert answer == 9074

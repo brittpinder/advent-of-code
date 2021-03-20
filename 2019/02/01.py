@@ -13,3 +13,4 @@ for i in range(0, len(data), 4):
         data[location] = data[num1] * data[num2]
 
 print(data[0])
+assert data[0] == 2842648
