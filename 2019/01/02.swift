@@ -20,3 +20,4 @@ let totalFuel = modules.map { calculateFuel(mass: $0) }
                        .reduce(0, +)
 
 print(totalFuel)
+assert(totalFuel == 5083024, "Answer is incorrect!")

@@ -15,3 +15,4 @@ var totalFuel = modules.map { $0 / 3 - 2 }
                        .reduce(0, +)
 
 print(totalFuel)
+assert(totalFuel == 3390596, "Answer is incorrect!")
