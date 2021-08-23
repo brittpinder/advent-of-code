@@ -22,11 +22,12 @@ func getInstructions(wire: String.SubSequence) -> [(direction: String, amount: I
     }
 }
 
-func getCoordinates(wire: [(direction: String, amount: Int)]) -> [Point] {
-    var coordinates: [Point] = []
+func getCoordinates(wire: [(direction: String, amount: Int)]) -> [Point : Int] {
+    var coordinates: [Point : Int] = [:]
     
     var position = Point(x: 0, y: 0)
     var facingDirection = Point(x: 0, y: 0)
+    var steps = 0
     
     for instruction in wire {
         switch instruction.direction {
@@ -41,7 +42,10 @@ func getCoordinates(wire: [(direction: String, amount: Int)]) -> [Point] {
         
         for _ in 0..<instruction.amount {
             position = position + facingDirection
-            coordinates.append(position)
+            steps += 1
+            if coordinates[position] == nil {
+                coordinates[position] = steps
+            }
         }
     }
     
@@ -54,15 +58,27 @@ let contents = try! String(contentsOfFile: "Input")
 let wires = contents.split(separator: "\n")
 assert(wires.count == 2, "Should have exactly two wires!")
 
+
+// Part 1
+
 let wireInstructions1 = getInstructions(wire: wires[0])
 let wireInstructions2 = getInstructions(wire: wires[1])
 
 let wireCoordinates1 = getCoordinates(wire: wireInstructions1)
 let wireCoordinates2 = getCoordinates(wire: wireInstructions2)
 
-let intersections = Array(Set(wireCoordinates1).intersection(Set(wireCoordinates2)))
+let intersections = Array(Set(wireCoordinates1.keys).intersection(Set(wireCoordinates2.keys)))
 let distances = intersections.map { abs($0.x) + abs($0.y) }.sorted()
 let closestIntersection = distances[0]
 
 print("Distance to closest intersection is \(closestIntersection)")
-assert(closestIntersection == 1211, "Answer is incorrect!")
+assert(closestIntersection == 1211, "Answer for part 1 is incorrect!")
+
+
+// Part 2
+
+let stepTotals = intersections.map { wireCoordinates1[$0]! + wireCoordinates2[$0]! }.sorted()
+let fewestSteps = stepTotals[0]
+
+print("Fewest steps to reach intersection is \(stepTotals[0])")
+assert(fewestSteps == 101386, "Answer for part 2 is incorrect!")
