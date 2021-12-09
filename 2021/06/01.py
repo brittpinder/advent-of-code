@@ -24,12 +24,12 @@ with open("input") as file:
 final_fish = simulate(initial_fish.copy(), 80)
 
 total_fish = sum(final_fish.values())
-print(f"Total Fish: {total_fish}")
+print(f"Total Fish after 80 days: {total_fish}")
 assert total_fish == 389726
 
 # Part Two:
 final_fish = simulate(initial_fish.copy(), 256)
 
 total_fish = sum(final_fish.values())
-print(f"Total Fish: {total_fish}")
+print(f"Total Fish after 256 days: {total_fish}")
 assert total_fish == 1743335992042
