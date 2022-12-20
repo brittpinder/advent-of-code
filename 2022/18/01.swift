@@ -17,6 +17,10 @@ struct Position {
                 Position(x: self.x, y: self.y, z: self.z + 1),
                 Position(x: self.x, y: self.y, z: self.z - 1)]
     }
+
+    func toString() -> String {
+        return "\(self.x),\(self.y),\(self.z)"
+    }
 }
 
 let coordinates = try! String(contentsOfFile: "input")
@@ -24,11 +28,13 @@ let coordinates = try! String(contentsOfFile: "input")
                         .map{$0.split(separator: ",")}
                         .map{Position(x: Int($0[0])!, y: Int($0[1])!, z: Int($0[2])!)}
 
+let coordinatesDict = coordinates.reduce(into: [String: Int]()) { $0[$1.toString()] = 0 }
+
 var surfaceArea = 6 * coordinates.count
 
 for coordinate in coordinates {
     for position in coordinate.getAdjacentPositions() {
-        if coordinates.contains(where: {$0 == position}) {
+        if coordinatesDict[position.toString()] != nil {
             surfaceArea -= 1
         }
     }
