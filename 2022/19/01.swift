@@ -2,10 +2,9 @@ import Foundation
 
 let start = DispatchTime.now()
 
-enum Mineral {
+enum Mineral: CaseIterable {
     case ore, clay, obsidian, geode
 }
-let allMinerals = [Mineral.ore, Mineral.clay, Mineral.obsidian, Mineral.geode]
 
 struct RobotCost {
     let mineral: Mineral
@@ -20,7 +19,7 @@ class Blueprint {
         self.robotCosts = robotCosts
 
         var maxes = [Mineral.ore : 0, Mineral.clay : 0, Mineral.obsidian : 0, Mineral.geode : 0]
-        for mineral in allMinerals {
+        for mineral in Mineral.allCases {
             for cost in robotCosts[mineral]! {
                 if cost.amount > maxes[cost.mineral]! {
                     maxes[cost.mineral] = cost.amount
@@ -96,7 +95,7 @@ func hasAbilityToCreateRobot(state: State, robotType: Mineral) -> Bool {
 func getRobotsToAimFor(state: State) -> [Mineral] {
     var robotTypes = [Mineral]()
 
-    for mineral in allMinerals {
+    for mineral in Mineral.allCases {
         if hasAbilityToCreateRobot(state: state, robotType: mineral) {
             if mineral == Mineral.geode {
                 robotTypes.append(mineral)
@@ -120,7 +119,7 @@ func payForRobot(state: inout State, robotType: Mineral) {
 func waitToCreateRobot(state: inout State, robotType: Mineral) {
     while !canMakeRobot(state: state, robotType: robotType) && state.timeLeft > 0 {
         state.timeLeft -= 1
-        for mineral in allMinerals {
+        for mineral in Mineral.allCases {
             state.minerals[mineral] = state.minerals[mineral]! + state.robots[mineral]!
         }
     }
@@ -131,14 +130,14 @@ func waitToCreateRobot(state: inout State, robotType: Mineral) {
 
     state.timeLeft -= 1
     payForRobot(state: &state, robotType: robotType)
-    for mineral in allMinerals {
+    for mineral in Mineral.allCases {
         state.minerals[mineral] = state.minerals[mineral]! + state.robots[mineral]!
     }
     state.robots[robotType] = state.robots[robotType]! + 1
 }
 
 func runOutTheClock(state: inout State) {
-    for mineral in allMinerals {
+    for mineral in Mineral.allCases {
         state.minerals[mineral] = state.minerals[mineral]! + state.robots[mineral]! * state.timeLeft
     }
     state.timeLeft = 0
