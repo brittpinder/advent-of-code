@@ -2,26 +2,25 @@ import Foundation
 
 enum Operation {
     case add, subtract, multiply, divide
-}
 
-func getOperationFromString(operation: String) -> Operation {
-    switch operation {
-        case "+": return Operation.add
-        case "-": return Operation.subtract
-        case "*": return Operation.multiply
-        case "/": return Operation.divide
-    default:
-        assertionFailure("Unrecognized operation string: \(operation)")
-        return Operation.add
+    init?(_ symbol: String) {
+        switch(symbol) {
+        case "+": self = .add
+        case "-": self = .subtract
+        case "*": self = .multiply
+        case "/": self = .divide
+        default:
+            return nil
+        }
     }
 }
 
 func getOppositeOperation(operation: Operation) -> Operation {
     switch operation {
-        case Operation.add: return Operation.subtract
-        case Operation.subtract: return Operation.add
-        case Operation.multiply: return Operation.divide
-        case Operation.divide: return Operation.multiply
+        case .add: return .subtract
+        case .subtract: return .add
+        case .multiply: return .divide
+        case .divide: return .multiply
     }
 }
 
@@ -53,16 +52,18 @@ for entry in input {
         monkeys[String(entry[0])] = Monkey(value: value)
     } else {
         let expression = entry[1].split(separator: " ")
-        monkeys[String(entry[0])] = Monkey(left: String(expression[0]), right: String(expression[2]), operation: getOperationFromString(operation: String(expression[1])))
+        monkeys[String(entry[0])] = Monkey(left: String(expression[0]),
+                                           right: String(expression[2]),
+                                           operation: Operation(String(expression[1]))!)
     }
 }
 
 func evaluateExpression(left: Int, right: Int, operation: Operation) -> Int {
     switch operation {
-        case Operation.add: return left + right
-        case Operation.subtract: return left - right
-        case Operation.multiply: return left * right
-        case Operation.divide: return left / right
+        case .add: return left + right
+        case .subtract: return left - right
+        case .multiply: return left * right
+        case .divide: return left / right
     }
 }
 
