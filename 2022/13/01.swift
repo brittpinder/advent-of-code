@@ -6,7 +6,7 @@ enum Order {
 
 class Node {
     var value: Int?
-    let parent: Node?
+    weak var parent: Node?
     var children = [Node]()
 
     init(parent: Node?) {
