@@ -9,7 +9,7 @@ class Folder {
     let name: String
     var files: [File]
     var folders: [Folder]
-    unowned var parent: Folder?
+    weak var parent: Folder?
 
     init(name: String, parent: Folder?) {
         self.name = name
