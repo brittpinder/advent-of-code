@@ -5,10 +5,6 @@ struct Position {
     var y: Int
     var z: Int
 
-    static func == (left: Position, right: Position) -> Bool {
-        return left.x == right.x && left.y == right.y && left.z == right.z
-    }
-
     func getAdjacentPositions() -> [Position] {
         return [Position(x: self.x + 1, y: self.y, z: self.z),
                 Position(x: self.x - 1, y: self.y, z: self.z),
